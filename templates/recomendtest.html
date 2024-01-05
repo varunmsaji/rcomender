@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f0f0f0;
+        }
+
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .card {
+            float:left;
+            width: 300px;
+            margin: 20px;
+            padding: 15px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        
+        }
+        .heading {
+            margin:20px;
+            text-align: center;
+            
+            
+            
+        }
+        form {
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 500px; /* Adjust the width as needed */
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            padding: 20px 20px;
+            background-color: #333;
+            color: white;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="#recommend">Recommend</a>
+        <a href="#contact">Contact Us</a>
+    </nav>
+    <div class="heading">Top 50 books</div>
+    <form action="/recommend_books" method="post">
+        <input name="user_input" type="text" class="form-control"><br>
+        <input type="submit">
+    </form>
+    {%if data%}
+    {%for i in data%}
+
+    <div class="card">
+        <img src="{{i[2]}}" alt="Profile Image">
+        <h2>{{i[1]}}</h2>
+        <p>{{i[0]}}</p>
+    </div>
+    {%endfor%}
+    {%endif%}
+    
+
+</body>
+</html>

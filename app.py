@@ -9,36 +9,43 @@ books = pickle.load(open('books.pkl','rb'))
 similarity_scores = pickle.load(open('similarity_score.pkl','rb'))
 book_title = list(popular_df['Book-Title'].values)
 image = list(popular_df['Image-URL-M'].values)
+author = list(popular_df['Book-Author'].values)
+
+
+
 app = Flask(__name__)
+
 
 @app.route('/')
 def index():
-    return render_template('index.html',book_title = book_title,image=image)
+    return render_template('test.html',book_title = book_title,image=image,author=author)
 
 
 @app.route('/recommend')
 def recoment():
-    return render_template('recomend.html')
+    return render_template('recomendtest.html')
 
 
 
-@app.route('/recoommend_books',methods=['post'])
+@app.route('/recommend_books',methods=['post'])
 def recommendb():
     user_input = request.form.get('user_input')
-    
-    index = np.where(pt.index==user_input)[0][0]
-    similar_items = sorted(list(enumerate(similarity_scores[index])),key=lambda x:x[1],reverse=True)[1:6]
     data =[]
-    for i in similar_items:
-        item =[]
-        temp_df = books[books['Book-Title']==pt.index[i[0]]]
-        item.extend(list(temp_df.drop_duplicates('Book-Title')['Book-Title'].values))
-        item.extend(list(temp_df.drop_duplicates('Book-Title')['Book-Author'].values))
-        item.extend(list(temp_df.drop_duplicates('Book-Title')['Image-URL-M'].values))
+    if user_input:
+    
+        index = np.where(pt.index==user_input)[0][0]
+        similar_items = sorted(list(enumerate(similarity_scores[index])),key=lambda x:x[1],reverse=True)[1:6]
         
-        data.append(item)
-    print(data)
-    return render_template('recomend.html',data=data)
+        for i in similar_items:
+            item =[]
+            temp_df = books[books['Book-Title']==pt.index[i[0]]]
+            item.extend(list(temp_df.drop_duplicates('Book-Title')['Book-Title'].values))
+            item.extend(list(temp_df.drop_duplicates('Book-Title')['Book-Author'].values))
+            item.extend(list(temp_df.drop_duplicates('Book-Title')['Image-URL-M'].values))
+            
+            data.append(item)
+    # print(data)
+    return render_template('recomendtest.html',data=data)
 
 
 
