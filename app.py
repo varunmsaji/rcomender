@@ -3,10 +3,10 @@ from flask import Flask,render_template,request
 import pickle
 import numpy as np
 
-popular_df = pickle.load(open('popular.pkl','rb'))
-pt = pickle.load(open('pt.pkl','rb'))
+popular_df = pickle.load(open('pickled_files\popular.pkl','rb'))
+pt = pickle.load(open('pickled_files\pt.pkl','rb'))
 books = pickle.load(open('books.pkl','rb'))
-similarity_scores = pickle.load(open('similarity_score.pkl','rb'))
+similarity_scores = pickle.load(open('pickled_files\similarity_score.pkl','rb'))
 book_title = list(popular_df['Book-Title'].values)
 image = list(popular_df['Image-URL-M'].values)
 author = list(popular_df['Book-Author'].values)
